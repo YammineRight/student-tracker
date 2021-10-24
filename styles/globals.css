@@ -14,3 +14,31 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #848188;
+  font-size: 12px;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .4em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .4em;
+}
+
+.font-14 {
+  font-size: 14px;
+}
