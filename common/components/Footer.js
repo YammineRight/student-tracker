@@ -40,7 +40,7 @@ const pages = [
 
 const Footer = ({}) => {
   return (
-    <div className="footer bg-light text-secondary">
+    <div className="footer bg-light text-secondary" style={{boxShadow:" -1px 0px 7px 0px #00000073"}}>
       <div className="container">
         <div className="row justify-content-start pt-5">
           {/* footer links */}
