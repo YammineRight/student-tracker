@@ -1,9 +1,36 @@
 import Link from "next/link";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import React, { useEffect, useState, useRef } from "react";
 
 const NavbarCustom = ({}) => {
+  const [navBackground, setNavBackground] = useState(false);
+  const navRef = useRef();
+
+  navRef.current = navBackground;
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 50;
+      if(navRef.current !== show) {
+        setNavBackground(show);
+      }
+    };
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <Navbar bg="light" expand="lg" className="sticky-top" style={{position: "fixed", left: "0px", right: "0px"}}>
+    <Navbar
+      expand="lg"
+      className="sticky-top"
+      style={{
+        position: "fixed",
+        left: "0px",
+        right: "0px",
+        transition: "0.6s ease",
+        backgroundColor: navBackground ? "#F8F9FA" : "transparent",
+      }}
+    >
       <Container>
         <Link passHref={true} href="/">
           <Navbar.Brand>
