@@ -28,8 +28,8 @@ const Home = () => {
             opacity: 0.2,
           }}
         />
-        <h1 className="text-center title-primary">Take Control Of Your Grades</h1>
-        <h5 className="text-center title-secondary">
+        <h1 className="text-center title-primary fade-in">Take Control Of Your Grades</h1>
+        <h5 className="text-center title-secondary fade-in">
           The only free app built by students to simplify grade tracking
         </h5>
       </div>
@@ -40,7 +40,7 @@ const Home = () => {
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilCalculatorAlt height="100" width="100" className="pb-3"/>
+              <UilCalculatorAlt height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Auto Average Calculation</h3>
               <p className="text-center">
                 Grades Tracker will automatically calculate your module average
@@ -56,7 +56,7 @@ const Home = () => {
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilBullseye height="100" width="100" className="pb-3"/>
+              <UilBullseye height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">What do I need?</h3>
               <p className="text-center">
                 {
@@ -72,7 +72,7 @@ const Home = () => {
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilRulerCombined height="100" width="100" className="pb-3"/>
+              <UilRulerCombined height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Tailored for you</h3>
               <p className="text-center">
                 {
@@ -88,7 +88,7 @@ const Home = () => {
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilChartBar height="100" width="100" className="pb-3"/>
+              <UilChartBar height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Grade Analytics</h3>
               <p className="text-center">
                 {
