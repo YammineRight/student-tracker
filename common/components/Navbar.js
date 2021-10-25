@@ -44,7 +44,7 @@ const NavbarCustom = ({}) => {
             </div>
           </Navbar.Brand>
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => {navBackground == false ? setNavBackground(true): setNavBackground(false)}}/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Link passHref={true} href="/dashboard">
