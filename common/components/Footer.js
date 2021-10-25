@@ -30,7 +30,7 @@ const socials = [
 const pages = [
   {
     name: "Home",
-    path: "/home",
+    path: "/",
   },
   {
     name: "About",
