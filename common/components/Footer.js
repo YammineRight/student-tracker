@@ -33,9 +33,13 @@ const pages = [
     path: "/",
   },
   {
+    name: "Courses",
+    path: "/my-courses"
+  },
+  {
     name: "About",
     path: "/about",
-  },
+  }
 ];
 
 const Footer = ({}) => {
@@ -75,8 +79,8 @@ const Footer = ({}) => {
                 <UilEnvelope />
                 <span>
                   :{" "}
-                  <a href="mailto:yammine.yammine@net.usj.edu.lb">
-                    yammine.yammine@net.usj.edu.lb
+                  <a href="mailto:info@coursesoverflow.com">
+                    info@coursesoverflow.com
                   </a>
                 </span>
               </small>
