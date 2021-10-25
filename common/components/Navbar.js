@@ -6,7 +6,16 @@ const NavbarCustom = ({}) => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Link passHref={true} href="/">
-          <Navbar.Brand>Courses Overflow</Navbar.Brand>
+          <Navbar.Brand>
+            <div className="d-flex align-items-center">
+              <img
+                src="/logo-black.svg"
+                alt="logo"
+                style={{ paddingRight: "7px" }}
+              />
+              Courses Overflow
+            </div>
+          </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
