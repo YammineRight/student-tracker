@@ -28,12 +28,12 @@ const Home = () => {
             opacity: 0.2,
           }}
         />
-        <h1 className="text-center">Take Control Of Your Grades</h1>
-        <p className="text-center">
+        <h1 className="text-center title-primary">Take Control Of Your Grades</h1>
+        <h5 className="text-center title-secondary">
           The only free app built by students to simplify grade tracking
-        </p>
+        </h5>
       </div>
-      <div className="row m-3 pt-5 mb-5" style={{backgroundColor: "white", borderRadius: "15px", paddingRight: "3rem", paddingLeft: "3rem"}}>
+      <div className="row m-3 pt-5 mb-5 bg-light" style={{borderRadius: "15px", paddingRight: "3rem", paddingLeft: "3rem"}}>
         <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
