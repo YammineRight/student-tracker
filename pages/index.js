@@ -17,12 +17,13 @@ const Home = () => {
           src="/happy-usj.jpeg"
           alt="happy usj"
           style={{
-            position: "absolute",
+            position: "fixed",
             minWidth: "100vw",
             maxHeight: "100vh",
             minHeight: "100vh",
             top: "0px",
             left: "0px",
+            right: "0px",
             zIndex: "-1",
             opacity: 0.2,
           }}
@@ -32,8 +33,8 @@ const Home = () => {
           The only free app built by students to simplify grade tracking
         </p>
       </div>
-      <div className="row mt-5 pt-5 pb-5 mb-5">
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+      <div className="row m-3 pt-5 mb-5" style={{backgroundColor: "white", borderRadius: "15px", paddingRight: "3rem", paddingLeft: "3rem"}}>
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
@@ -49,7 +50,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
@@ -65,7 +66,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
@@ -81,7 +82,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"

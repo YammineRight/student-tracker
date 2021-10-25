@@ -3,7 +3,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 
 const NavbarCustom = ({}) => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="sticky-top" style={{position: "fixed", left: "0px", right: "0px"}}>
       <Container>
         <Link passHref={true} href="/">
           <Navbar.Brand>
