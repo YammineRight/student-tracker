@@ -3,13 +3,13 @@ import NavbarCustom from "../components/Navbar";
 
 const NavFooterLayout = ({ children }) => {
   return (
-    <>
+    <div  style={{ position: "relative", overflow: "hidden" }}>
       <NavbarCustom />
-      <div className="container d-flex flex-column" style={{minHeight: "calc(100vh - 56px)", position: "relative", overflow: "hidden"}}>
+      <div className="container d-flex flex-column" style={{minHeight: "calc(100vh - 56px)" }}>
         {children}
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
