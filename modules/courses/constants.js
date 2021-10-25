@@ -3,15 +3,15 @@ export const courseRules = {
   description: "nullable",
   credits: "required",
   professor: "nullable",
-  url: "url|nullable",
+  link: "url|nullable",
   notes: "nullable"
 }
 
 export const emptyCourse = {
   title: "",
   description: "",
-  credits: 4,
+  credits: "",
   professor: "",
-  url: "",
+  link: "",
   notes: "",
 }

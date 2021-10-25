@@ -12,7 +12,7 @@ const AddCourse = (props) => {
 
   const handleInput = ({ target: field }) => {
     const { name, value } = field;
-    console.log(name, value)
+
     setCourse((oldState) => ({ ...oldState, [name]: value }));
   };
 
@@ -21,7 +21,7 @@ const AddCourse = (props) => {
 
     const id = addCourse(course);
     if (id) {
-      router.push('/my-courses');
+      router.push("/my-courses");
     }
   };
 
@@ -36,11 +36,22 @@ const AddCourse = (props) => {
         error={errors?.title}
         helperText={errors?.title || " "}
         name="title"
-        label="Title"
+        label="Title*"
         value={course.title}
         variant="standard"
         onChange={handleInput}
-        className="w-100"
+        className="w-100 pb-2"
+      />
+      <TextField
+        error={errors?.credits}
+        helperText={errors?.credits || " "}
+        name="credits"
+        label="Credits*"
+        type="number"
+        value={course.credits}
+        variant="standard"
+        onChange={handleInput}
+        className="w-100 pb-2"
       />
       <TextField
         error={errors?.description}
@@ -50,28 +61,51 @@ const AddCourse = (props) => {
         value={course.description}
         variant="standard"
         onChange={handleInput}
-        className="w-100"
+        className="w-100 pb-2"
       />
       <TextField
-        error={errors?.credits}
-        helperText={errors?.credits || " "}
-        name="credits"
-        label="Credits"
-        type="number"
-        value={course.credits}
+        error={errors?.professor}
+        helperText={errors?.professor || " "}
+        name="professor"
+        label="Professor"
+        value={course.professor}
+        variant="standard"
+        onChange={handleInput}
+        className="w-100 pb-2"
+      />
+      <TextField
+        error={errors?.notes}
+        helperText={errors?.notes || " "}
+        name="notes"
+        label="Notes"
+        value={course.notes}
+        variant="standard"
+        onChange={handleInput}
+        className="w-100 pb-2"
+      />
+      <TextField
+        error={errors?.link}
+        helperText={errors?.link || " "}
+        name="link"
+        label="Link"
+        value={course.link}
         variant="standard"
         onChange={handleInput}
         className="w-100 pb-4"
       />
 
-      <Button variant="contained" type="submit">Add</Button>
+      <Button variant="contained" type="submit">
+        Add
+      </Button>
     </form>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { errors: state.main.status.addCourse.errors,
-  isSubmited: state.main.status.addCourse.isSubmited };
+  return {
+    errors: state.main.status.addCourse.errors,
+    isSubmited: state.main.status.addCourse.isSubmited,
+  };
 };
 
 const mapDispatchToProps = {
