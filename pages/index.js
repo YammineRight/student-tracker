@@ -17,29 +17,30 @@ const Home = () => {
           src="/happy-usj.jpeg"
           alt="happy usj"
           style={{
-            position: "absolute",
+            position: "fixed",
             minWidth: "100vw",
             maxHeight: "100vh",
             minHeight: "100vh",
             top: "0px",
             left: "0px",
+            right: "0px",
             zIndex: "-1",
             opacity: 0.2,
           }}
         />
-        <h1 className="text-center">Take Control Of Your Grades</h1>
-        <p className="text-center">
+        <h1 className="text-center title-primary fade-in">Take Control Of Your Grades</h1>
+        <h5 className="text-center title-secondary fade-in">
           The only free app built by students to simplify grade tracking
-        </p>
+        </h5>
       </div>
-      <div className="row mt-5 pt-5 pb-5 mb-5">
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+      <div className="row m-3 pt-5 mb-5 bg-light" style={{borderRadius: "15px", paddingRight: "3rem", paddingLeft: "3rem"}}>
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilCalculatorAlt height="100" width="100" className="pb-3"/>
+              <UilCalculatorAlt height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Auto Average Calculation</h3>
               <p className="text-center">
                 Grades Tracker will automatically calculate your module average
@@ -49,13 +50,13 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilBullseye height="100" width="100" className="pb-3"/>
+              <UilBullseye height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">What do I need?</h3>
               <p className="text-center">
                 {
@@ -65,13 +66,13 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilRulerCombined height="100" width="100" className="pb-3"/>
+              <UilRulerCombined height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Tailored for you</h3>
               <p className="text-center">
                 {
@@ -81,13 +82,13 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 pb-4">
+        <div className="col-12 col-md-6 col-lg-3 pb-5">
           <div className="d-flex align-items-center justify-content-center">
             <div
               className="d-flex flex-column align-items-center"
               style={{ maxWidth: "300px" }}
             >
-              <UilChartBar height="100" width="100" className="pb-3"/>
+              <UilChartBar height="100" width="100" className="pb-3 animate-bounce-hover"/>
               <h3 className="text-center">Grade Analytics</h3>
               <p className="text-center">
                 {

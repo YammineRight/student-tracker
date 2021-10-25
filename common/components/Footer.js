@@ -33,14 +33,18 @@ const pages = [
     path: "/",
   },
   {
+    name: "Courses",
+    path: "/my-courses"
+  },
+  {
     name: "About",
     path: "/about",
-  },
+  }
 ];
 
 const Footer = ({}) => {
   return (
-    <div className="footer bg-light text-secondary">
+    <div className="footer bg-light text-secondary" style={{boxShadow:" -1px 0px 7px 0px #00000073"}}>
       <div className="container">
         <div className="row justify-content-start pt-5">
           {/* footer links */}
@@ -75,8 +79,8 @@ const Footer = ({}) => {
                 <UilEnvelope />
                 <span>
                   :{" "}
-                  <a href="mailto:yammine.yammine@net.usj.edu.lb">
-                    yammine.yammine@net.usj.edu.lb
+                  <a href="mailto:info@coursesoverflow.com">
+                    info@coursesoverflow.com
                   </a>
                 </span>
               </small>

@@ -26,19 +26,91 @@ a {
 
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid;
 }
 
 .separator:not(:empty)::before {
-  margin-right: .4em;
+  margin-right: 0.4em;
 }
 
 .separator:not(:empty)::after {
-  margin-left: .4em;
+  margin-left: 0.4em;
 }
 
 .font-14 {
   font-size: 14px;
+}
+
+.title-primary {
+  font-size: 2.5rem !important;
+}
+
+.title-secondary {
+  font-size: 0.8rem !important;
+}
+
+@media (min-width: 1200px) {
+  .title-primary {
+    font-size: 4.5rem !important;
+  }
+
+  .title-secondary {
+    font-size: 1rem !important;
+  }
+}
+
+.fade-in {
+  -webkit-animation: fade-in 0.8s forwards;
+  animation: fade-in 0.8s forwards;
+  opacity: 0;
+}
+
+@-webkit-keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+.animate-bounce-hover {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+
+.animate-bounce-hover:hover {
+  animation-name: bounce;
+  -moz-animation-name: bounce;
 }
