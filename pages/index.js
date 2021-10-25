@@ -19,8 +19,8 @@ const Home = () => {
           style={{
             position: "absolute",
             minWidth: "100vw",
-            maxHeight: "100vh",
-            minHeight: "100vh",
+            maxHeight: "calc(100vh - 56px)",
+            minHeight: "calc(100vh - 56px)",
             top: "0px",
             left: "0px",
             zIndex: "-1",

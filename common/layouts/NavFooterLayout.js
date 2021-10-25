@@ -5,7 +5,7 @@ const NavFooterLayout = ({ children }) => {
   return (
     <>
       <NavbarCustom />
-      <div className="container d-flex flex-column" style={{minHeight: "calc(100vh - 56px)"}}>
+      <div className="container d-flex flex-column" style={{minHeight: "calc(100vh - 56px)", position: "relative", overflow: "hidden"}}>
         {children}
       </div>
       <Footer />
