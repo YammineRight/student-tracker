@@ -1,39 +1,41 @@
 import { useRouter } from "next/dist/client/router";
-import { getLayout } from "../../common/layouts/NavFooterLayout";
-import { connect } from "react-redux";
+import { getLayout } from "../../../../../common/layouts/NavFooterLayout";
+import { useSelector } from "react-redux";
 import DefaultErrorPage from "next/error";
+import { getCourse } from "../../../../../modules/courses/redux/getters/main";
 
-const CoursePage = ({ courses }) => {
+const CoursePage = () => {
   const router = useRouter();
   const { courseId } = router.query;
+  const course = useSelector((state) => getCourse(state, courseId))
 
-  if (courses[courseId]) {
+  if (course) {
     return (
       <div className="pt-4">
         <div className="pb-3">
           <h6 className="d-inline">Course title:</h6>
-          <h4 className="d-inline"> {courses[courseId].title}</h4>
+          <h4 className="d-inline"> {course.title}</h4>
         </div>
         <div style={{ maxWidth: "max-content" }}>
           <p className="d-flex justify-content-between">
             <span style={{ paddingRight: "10px" }}>credits:</span>
-            <span>{courses[courseId].credits}</span>
+            <span>{course.credits}</span>
           </p>
           <p className="d-flex justify-content-between">
             <span style={{ paddingRight: "10px" }}>description:</span>
-            <span>{courses[courseId]?.description || "NA"}</span>
+            <span>{course?.description || "NA"}</span>
           </p>
           <p className="d-flex justify-content-between">
             <span style={{ paddingRight: "10px" }}>professor:</span>
-            <span>{courses[courseId]?.professor || "NA"}</span>
+            <span>{course?.professor || "NA"}</span>
           </p>
           <p className="d-flex justify-content-between">
             <span style={{ paddingRight: "10px" }}>link:</span>
-            <span>{courses[courseId]?.link || "NA"}</span>
+            <span>{course?.link || "NA"}</span>
           </p>
           <p className="d-flex justify-content-between">
             <span style={{ paddingRight: "10px" }}>notes:</span>
-            <span>{courses[courseId]?.notes || "NA"}</span>
+            <span>{course?.notes || "NA"}</span>
           </p>
         </div>
       </div>
@@ -47,8 +49,4 @@ const CoursePage = ({ courses }) => {
 
 CoursePage.getLayout = getLayout;
 
-const mapStateToProps = (state) => {
-  return { courses: state.main.courses };
-};
-
-export default connect(mapStateToProps)(CoursePage);
+export default CoursePage;
