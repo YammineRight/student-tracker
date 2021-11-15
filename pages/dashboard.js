@@ -12,7 +12,6 @@ import { getSemesters } from "../modules/courses/redux/getters/main";
 const Dashboard = () => {
   const router = useRouter();
   const semesters = useSelector(getSemesters);
-  console.log(semesters)
 
   return (
     <>

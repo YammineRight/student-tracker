@@ -19,7 +19,6 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 const AddEditSemester = (props) => {
   const { submitSemester, errors, resetSubmitSemesterStatus, semesterToEdit } =
     props;
-    console.log(semesterToEdit)
   const [semester, setSemester] = useState(semesterToEdit || emptySemester);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);

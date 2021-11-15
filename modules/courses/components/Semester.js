@@ -7,7 +7,6 @@ import Collapse from "@material-ui/core/Collapse";
 
 const Semester = ({ semester }) => {
   const { isActive: isCoursesOpen, toggle: toggleCourses } = useToggle(true);
-  console.log(semester.coursesIds);
   return (
     <div className="bg-light rounded-3 p-3 mb-4">
       <div className="d-flex justify-content-between align-items-center">
