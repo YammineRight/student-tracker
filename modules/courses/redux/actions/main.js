@@ -30,6 +30,13 @@ export const resetSubmitCourseStatus = () => (dispatch) => {
   });
 };
 
+export const deleteCourse = (courseId) => (dispatch) => {
+  dispatch({
+    type: t.DELETE_COURSE,
+    payload: courseId,
+  })
+};
+
 export const submitSemester = (semester) => (dispatch) => {
   const { success, errors } = Validator.validate(semester, semesterRules);
   const randomId = Math.floor(1000 + Math.random() * 9000);
@@ -54,6 +61,13 @@ export const resetSubmitSemesterStatus = () => (dispatch) => {
   dispatch({
     type: t.RESET_SUBMIT_SEMESTER_STATUS,
   });
+};
+
+export const deleteSemester = (semesterId) => (dispatch) => {
+  dispatch({
+    type: t.DELETE_SEMESTER,
+    payload: semesterId
+  })
 };
 
 export const submitExam = (exam, courseId) => (dispatch) => {
@@ -83,3 +97,9 @@ export const resetSubmitExamStatus = () => (dispatch) => {
   });
 };
 
+export const deleteExam = (examId) => (dispatch) => {
+  dispatch({
+    type: t.DELETE_EXAM,
+    payload: examId
+  })
+};

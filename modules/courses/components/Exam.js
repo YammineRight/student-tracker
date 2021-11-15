@@ -1,55 +1,78 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getCourse, getExam } from "../redux/getters/main";
-import { UilBookOpen } from "@iconscout/react-unicons";
+import { UilBookOpen, UilTrashAlt } from "@iconscout/react-unicons";
 import Link from "next/link";
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, Button } from "@material-ui/core";
+import {deleteExam} from "../redux/actions/main";
+import { connect } from "react-redux";
 
-const Exam = ({ examId }) => {
+
+const Exam = ({ examId, dispatchDeleteExam }) => {
   const exam = useSelector((state) => getExam(state, examId));
   const course = useSelector((state) => getCourse(state, exam.courseId))
 
   return (
-    <Link
-      passHref={true}
-      href={`semester/${course.semesterId}/course/${exam.courseId}/exam/${examId}/edit`}
+    <div
+          className="text-light d-flex rounded-3 align-items-center"
+          style={{
+            background: "#eeeeee14",
+            width: "fit-content",
+            minHeight: "85px",
+          }}
     >
-      <ButtonBase
-        className="text-light d-flex rounded-3"
-        style={{
-          background: "#eeeeee14",
-          width: "fit-content",
-          minHeight: "85px",
-        }}
+      <Link
+        passHref={true}
+        href={`semester/${course.semesterId}/course/${exam.courseId}/exam/${examId}/edit`}
       >
-        <div className="d-flex p-3 align-items-center">
-          <div>
-            <h4 className="mb-0">
-              {exam.title}
-              <UilBookOpen className="m-2" />
-            </h4>
+        <ButtonBase
+        className="first-custom-class"
+        >
+          <div className="d-flex p-3 align-items-center">
+            <div>
+              <h4 className="mb-0">
+                {exam.title}
+                <UilBookOpen className="m-2" />
+              </h4>
+            </div>
+            <div
+              className="d-flex flex-column pt-0 pb-0"
+              style={{ paddingLeft: "10px" }}
+            >
+              {exam.grade && (
+                <small
+                  style={{
+                    color: exam.passingGrade > exam.grade ? "#efc2c2" : ""
+                  }}
+                >
+                  Grade: {exam.grade}/20{" "}
+                </small>
+              )}
+              {exam.weight && <small>Weight: {exam.weight}% </small>}
+              {exam.date && (
+                <small>Scheduled on: {exam.date.toLocaleString()}</small>
+              )}
+            </div>
           </div>
-          <div
-            className="d-flex flex-column pt-0 pb-0"
-            style={{ paddingLeft: "10px" }}
+        </ButtonBase>
+      </Link>
+          <a
+            onClick={() => dispatchDeleteExam(examId)}
+            style={{
+              color: "white",
+              padding: "15px",
+              position: "relative",
+              zIndex: "2",
+              cursor: "pointer",
+            }}
           >
-            {exam.grade && (
-              <small
-                style={{
-                  color: exam.passingGrade > exam.grade ? "#efc2c2" : ""
-                }}
-              >
-                Grade: {exam.grade}/20{" "}
-              </small>
-            )}
-            {exam.weight && <small>Weight: {exam.weight}% </small>}
-            {exam.date && (
-              <small>Scheduled on: {exam.date.toLocaleString()}</small>
-            )}
-          </div>
-        </div>
-      </ButtonBase>
-    </Link>
+            <UilTrashAlt />
+          </a>
+    </div>
   );
 };
 
-export default Exam;
+const mapDispatchToProps = {
+  dispatchDeleteExam: deleteExam,
+};
+
+export default connect((state) => ({}), mapDispatchToProps)(Exam);

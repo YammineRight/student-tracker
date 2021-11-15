@@ -1,19 +1,28 @@
-import { UilPen, UilPlus, UilArrowDown } from "@iconscout/react-unicons";
+import { UilPen, UilPlus, UilArrowDown, UilTrashAlt } from "@iconscout/react-unicons";
 import Link from "next/link";
 import { Button } from "@material-ui/core";
-import { CourseDisplay } from "./Course";
+import CourseDisplay from "./Course";
 import { useToggle } from "../../../common/util/toogleHooks";
 import Collapse from "@material-ui/core/Collapse";
+import { deleteSemester } from "../redux/actions/main";
+import { connect } from "react-redux";
 
-const Semester = ({ semester }) => {
+const Semester = ({ semester, dispatchDeleteSemester }) => {
   const { isActive: isCoursesOpen, toggle: toggleCourses } = useToggle(true);
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
   return (
     <div className="bg-light rounded-3 p-3 mb-4">
       <div className="d-flex justify-content-between align-items-center">
         <h3 className="mb-0 ">Semester {semester?.number}</h3>
         <div>
+          <a className="p-2" style={{cursor: "pointer"}} onClick={() => dispatchDeleteSemester(semester.id)}>
+            <UilTrashAlt />
+          </a>
           <Link href={`/semester/${semester.id}/edit`} passHref={true}>
-            <a href="">
+            <a className="p-2">
               <UilPen />
             </a>
           </Link>
@@ -67,4 +76,8 @@ const Semester = ({ semester }) => {
   );
 };
 
-export default Semester;
+const mapDispatchToProps = {
+  dispatchDeleteSemester: deleteSemester,
+};
+
+export default connect((state) => ({}), mapDispatchToProps)(Semester);
