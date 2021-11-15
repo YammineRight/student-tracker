@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getExam } from "../redux/getters/main";
-import { UilBookOpen } from "@iconscout/react-unicons";
+import { UilBookOpen, UilTrashAlt } from "@iconscout/react-unicons";
+import { Button } from "@material-ui/core";
 
 const Exam = ({ examId }) => {
   const exam = useSelector((state) => getExam(state, examId));
+  const dispatch = useDispatch();
 
   return (
     <div className="d-flex p-2 rounded-3 align-items-center" style={{ background: "#eeeeee14", width: "fit-content", minHeight: '85px' }}>
@@ -18,6 +20,13 @@ const Exam = ({ examId }) => {
         {exam.weight && <small>Weight: {exam.weight}% </small>}
         {exam.date && <small>Scheduled on: {exam.date.toLocaleString()}</small>}
       </div>
+      <Button
+        style={{
+          color: "white"
+        }}
+      >
+        <UilTrashAlt />
+      </Button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { UilPen, UilPlus, UilArrowDown } from "@iconscout/react-unicons";
+import { UilPen, UilPlus, UilArrowDown, UilTrashAlt } from "@iconscout/react-unicons";
 import Link from "next/link";
 import { Button } from "@material-ui/core";
 import { CourseDisplay } from "./Course";
@@ -13,8 +13,11 @@ const Semester = ({ semester }) => {
       <div className="d-flex justify-content-between align-items-center">
         <h3 className="mb-0 ">Semester {semester?.number}</h3>
         <div>
+          <a class="p-2">
+            <UilTrashAlt />
+          </a>
           <Link href={`/semester/${semester.id}/edit`} passHref={true}>
-            <a href="">
+            <a class="p-2">
               <UilPen />
             </a>
           </Link>

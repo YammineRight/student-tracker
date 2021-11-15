@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getCourse } from "../redux/getters/main";
-import { UilEye, UilEyeSlash, UilPen, UilPlus } from "@iconscout/react-unicons";
+import { UilEye, UilEyeSlash, UilPen, UilPlus, UilTrashAlt } from "@iconscout/react-unicons";
 import { Button } from "@material-ui/core";
 import Collapse from "@material-ui/core/Collapse";
 import { useToggle } from "../../../common/util/toogleHooks";
@@ -20,6 +20,14 @@ export const CourseDisplay = ({ courseId }) => {
       <div className="d-flex justify-content-between align-items-center">
         <h6 className="mb-0">{title}</h6>
         <div className="">
+          <a
+            style={{
+              color: "white",
+            }}
+            className="btn text-light p-2"
+          >
+            <UilTrashAlt />
+          </a>
           <a className="btn text-light p-2" onClick={toggleDetails}>
             {isDetailsOpen ? <UilEyeSlash /> : <UilEye />}
           </a>

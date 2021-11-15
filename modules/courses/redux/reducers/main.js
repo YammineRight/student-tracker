@@ -71,6 +71,35 @@ const main = (state = emptyState, action) => {
       };
     }
 
+    case t.DELETE_COURSE: {
+      const courseToDelete = state.courses[action.payload];
+
+      if (!courseToDelete) throw Error('course not found');
+
+      const newExams = {...state.exams}
+      const newCourses = {...state.courses}
+
+      delete newCourses[courseToDelete.id];
+
+      const semesterToUpdate = {...state.semesters[courseToDelete.semesterId]}
+      semesterToUpdate.coursesIds = semesterToUpdate.coursesIds.filter((id) => id!= courseToDelete.id);
+
+      for (examId of courseToDelete) {
+        delete newExams[examId];
+      }
+
+
+      return {
+        ...state, 
+        semesters: {
+          ...state.semesters,
+          [courseToDelete.semesterId]: semesterToUpdate
+        },
+        courses: newCourses,
+        exams: newExams,
+      }
+    }
+
     case t.SUBMIT_SEMESTER: {
       const { id, semester } = action.payload;
       return {
@@ -107,6 +136,32 @@ const main = (state = emptyState, action) => {
           submitSemester: emptyStatus,
         },
       };
+    }
+
+    case t.DELETE_SEMESTER: {
+      const semesterToDelete = state.semesters[action.payload];
+
+      if (!semesterToDelete) throw Error('course not found');
+
+      const newExams = {...state.exams}
+      const newCourses = {...state.courses}
+
+      const newSemesters = {...state.semesters}
+      delete newSemesters[semesterToDelete.id];
+
+      for (courseId of semesterToDelete.coursesIds) {
+        for (examId of newCourses[courseId].examsIds) {
+          delete newExams[examId];
+        }
+        delete newCourses[courseId];
+      }
+
+      return {
+        ...state, 
+        semesters: newSemesters,
+        courses: newCourses,
+        exams: newExams,
+      }
     }
 
     case t.SUBMIT_EXAM: {
@@ -158,6 +213,30 @@ const main = (state = emptyState, action) => {
           submitExam: emptyStatus,
         },
       };
+    }
+
+    case t.DELETE_EXAM: {
+      const examToDelete = state.exams[action.payload];
+
+      if (!examToDelete) throw Error('exam not found');
+
+      const newExams = {...state.exams}
+      const newCourses = {...state.courses}
+
+      delete newExams[examToDelete.id];
+
+      const courseToUpdate = {...state.courses[examToDelete.courseId]}
+      courseToUpdate.coursesIds = courseToUpdate.coursesIds.filter((id) => id!= examToDelete.id);
+
+
+      return {
+        ...state, 
+        courses: {
+          ...state.courses,
+          [examToDelete.courseId]: courseToUpdate
+        },
+        exams: newExams,
+      }
     }
 
     default:
