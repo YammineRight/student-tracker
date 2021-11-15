@@ -6,8 +6,10 @@ import Collapse from "@material-ui/core/Collapse";
 import { useToggle } from "../../../common/util/toogleHooks";
 import Link from "next/link";
 import Exam from "./Exam";
+import {deleteCourse} from "../redux/actions/main";
+import { connect } from "react-redux";
 
-export const CourseDisplay = ({ courseId }) => {
+const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
   const course = useSelector((state) => getCourse(state, courseId));
   const { isActive: isDetailsOpen, toggle: toggleDetails } = useToggle();
   const { title, ...details } = course;
@@ -25,6 +27,7 @@ export const CourseDisplay = ({ courseId }) => {
               color: "white",
             }}
             className="btn text-light p-2"
+            onClick={() => dispatchDeleteCourse(courseId)}
           >
             <UilTrashAlt />
           </a>
@@ -128,3 +131,9 @@ export const CourseDisplay = ({ courseId }) => {
     </div>
   );
 };
+
+const mapDispatchToProps = {
+  dispatchDeleteCourse: deleteCourse,
+};
+
+export default connect((state) => ({}), mapDispatchToProps)(CourseDisplay);

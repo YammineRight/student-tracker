@@ -114,3 +114,8 @@ a {
   animation-name: bounce;
   -moz-animation-name: bounce;
 }
+
+.first-custom-class:hover {
+  text-decoration: none;
+  color: unset;
+}
