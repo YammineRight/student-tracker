@@ -66,13 +66,17 @@ const NavbarCustom = ({}) => {
 
               <Nav.Link
                 className="link-signout"
-                onClick={() => signOut()}
+                onClick={() => signOut({
+                  callbackUrl: "/"
+                })}
               >
                 Logout
               </Nav.Link>
             </Nav>
             <Button
-              onClick={() => signOut()}
+              onClick={() => signOut({
+                callbackUrl: "/"
+              })}
               className="button-signout"
             >
               Logout
