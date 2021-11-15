@@ -1,28 +1,85 @@
 import * as t from "../types";
 import axios from "axios";
 import { Validator } from "../../../../common/util/validation";
-import { courseRules } from "../../constants";
+import { courseRules, semesterRules, examRules } from "../../constants";
 
-export const addCourse = (course) => (dispatch) => {
-  const { success, errors } = Validator.validate(course, courseRules);
-
+export const submitCourse = (course, semesterId) => (dispatch) => {
+  const { success, errors } = Validator.validate({...course, semesterId}, courseRules);
+  const randomId = Math.floor(1000 + Math.random() * 9000);
   if (success) {
-    const randomId = Math.floor(1000 + Math.random() * 9000);
     dispatch({
-      type: t.ADD_COURSE,
-      payload: { id: randomId, course },
+      type: t.SUBMIT_COURSE,
+      payload: {
+        id: course.id || randomId,
+        course,
+        semesterId
+      },
     });
-    return randomId;
+    return course.id || randomId;
   } else {
     dispatch({
-      type: t.ADD_COURSE_ERROR,
+      type: t.SUBMIT_COURSE_ERROR,
       payload: { errors },
     });
   }
 };
 
-export const resetAddCourseStatus = () => (dispatch) => {
+export const resetSubmitCourseStatus = () => (dispatch) => {
   dispatch({
-    type: t.RESET_ADD_COURSE_STATUS,
+    type: t.RESET_SUBMIT_COURSE_STATUS,
   });
 };
+
+export const submitSemester = (semester) => (dispatch) => {
+  const { success, errors } = Validator.validate(semester, semesterRules);
+  const randomId = Math.floor(1000 + Math.random() * 9000);
+  if (success) {
+    dispatch({
+      type: t.SUBMIT_SEMESTER,
+      payload: {
+        id: semester.id || randomId,
+        semester,
+      },
+    });
+    return semester.id || randomId;
+  } else {
+    dispatch({
+      type: t.SUBMIT_SEMESTER_ERROR,
+      payload: { errors },
+    });
+  }
+};
+
+export const resetSubmitSemesterStatus = () => (dispatch) => {
+  dispatch({
+    type: t.RESET_SUBMIT_SEMESTER_STATUS,
+  });
+};
+
+export const submitExam = (exam, courseId) => (dispatch) => {
+  const { success, errors } = Validator.validate({...exam, courseId}, examRules);
+  const randomId = Math.floor(1000 + Math.random() * 9000);
+  if (success) {
+    dispatch({
+      type: t.SUBMIT_EXAM,
+      payload: {
+        id: exam.id || randomId,
+        exam,
+        courseId
+      },
+    });
+    return exam.id || randomId;
+  } else {
+    dispatch({
+      type: t.SUBMIT_EXAM_ERROR,
+      payload: { errors },
+    });
+  }
+};
+
+export const resetSubmitExamStatus = () => (dispatch) => {
+  dispatch({
+    type: t.RESET_SUBMIT_EXAM_STATUS,
+  });
+};
+

@@ -1,14 +1,22 @@
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { emptyCourse } from "../constants";
-import { addCourse, resetAddCourseStatus } from "../redux/actions/main";
+import { submitCourse, resetSubmitCourseStatus } from "../redux/actions/main";
 
-const AddCourse = (props) => {
-  const { addCourse, errors, resetAddCourseStatus } = props;
-  const [course, setCourse] = useState(emptyCourse);
+const EditAddCourseForm = (props) => {
+  const { submitCourse, errors, resetSubmitCourseStatus, courseToEdit, semesterId } = props;
+  const [course, setCourse] = useState(courseToEdit || emptyCourse);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState();
 
   const handleInput = ({ target: field }) => {
     const { name, value } = field;
@@ -18,20 +26,35 @@ const AddCourse = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const id = addCourse(course);
+    setIsLoading(true);
+    const id = submitCourse(course, semesterId);
+    setIsLoading(false);
     if (id) {
-      router.push("/my-courses");
+      router.push("/dashboard");
     }
   };
 
   useEffect(() => {
-    resetAddCourseStatus();
-    return resetAddCourseStatus();
-  }, [resetAddCourseStatus]);
+    resetSubmitCourseStatus();
+    return resetSubmitCourseStatus();
+  }, [resetSubmitCourseStatus]);
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl> */}
       <TextField
         error={errors?.title}
         helperText={errors?.title || " "}
@@ -95,7 +118,7 @@ const AddCourse = (props) => {
       />
 
       <Button variant="contained" type="submit">
-        Add
+        {courseToEdit?.id ? 'Save' : 'Add'}
       </Button>
     </form>
   );
@@ -103,14 +126,14 @@ const AddCourse = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    errors: state.main.status.addCourse.errors,
-    isSubmited: state.main.status.addCourse.isSubmited,
+    errors: state.main.status.submitCourse.errors,
+    isSubmited: state.main.status.submitCourse.isSubmited,
   };
 };
 
 const mapDispatchToProps = {
-  addCourse,
-  resetAddCourseStatus,
+  submitCourse,
+  resetSubmitCourseStatus,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCourse);
+export default connect(mapStateToProps, mapDispatchToProps)(EditAddCourseForm);
