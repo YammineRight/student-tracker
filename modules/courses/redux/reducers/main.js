@@ -56,7 +56,7 @@ const emptyState = {
     },
     6: {
       id: 6,
-      semester_id: 1,
+      semesterId: 1,
       title: "Electronique Numerique",
       credits: 6,
       professor: "Rayan Mina",
@@ -180,6 +180,7 @@ const main = (state = emptyState, action) => {
 
     case t.DELETE_COURSE: {
       const courseToDelete = state.courses[action.payload];
+      console.log(courseToDelete)
 
       if (!courseToDelete) throw Error('course not found');
 
@@ -189,12 +190,12 @@ const main = (state = emptyState, action) => {
       delete newCourses[courseToDelete.id];
 
       const semesterToUpdate = {...state.semesters[courseToDelete.semesterId]}
+      console.log({semesterToUpdate})
       semesterToUpdate.coursesIds = semesterToUpdate.coursesIds.filter((id) => id!= courseToDelete.id);
 
       for (const examId of courseToDelete.examsIds) {
         delete newExams[examId];
       }
-
 
       return {
         ...state, 
