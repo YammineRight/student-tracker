@@ -76,7 +76,7 @@ export const CourseDisplay = ({ courseId }) => {
             {course.examsIds.length !== 0 ? (
               <>
                 <h6 className="pt-2">Exams:</h6>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center flex-wrap">
                   {course.examsIds.reverse().map((examId) => (
                     <div key={examId} className="p-1">
                       <Exam examId={examId} />
