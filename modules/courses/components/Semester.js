@@ -9,7 +9,10 @@ import { connect } from "react-redux";
 
 const Semester = ({ semester, dispatchDeleteSemester }) => {
   const { isActive: isCoursesOpen, toggle: toggleCourses } = useToggle(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
   return (
     <div className="bg-light rounded-3 p-3 mb-4">
       <div className="d-flex justify-content-between align-items-center">

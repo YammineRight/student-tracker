@@ -67,6 +67,24 @@ a {
   opacity: 0;
 }
 
+.button-signout {
+  display: block;
+}
+
+.link-signout {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .button-signout {
+    display: none;
+  }
+
+  .link-signout {
+    display: block;
+  }
+}
+
 @-webkit-keyframes fade-in {
   100% {
     opacity: 1;
