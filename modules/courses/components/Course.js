@@ -21,7 +21,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
     >
       <div className="d-flex justify-content-between align-items-center">
         <h6 className="mb-0">{title}</h6>
-        <div className="">
+        <div className="flex-shrink-0">
           <a
             style={{
               color: "white",

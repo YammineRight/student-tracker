@@ -4,8 +4,9 @@ import "../styles/globals.css";
 import { wrapper } from "../common/store";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFunctionsUtils from "@date-io/date-fns";
+import { UserProvider } from "../modules/user/services/user/provider";
 
-const MyApp = ({ Component, pageProps: {session, meta = {}, ...props } }) => {
+const MyApp = ({ Component, pageProps: { session, meta = {}, ...props } }) => {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
@@ -22,9 +23,11 @@ const MyApp = ({ Component, pageProps: {session, meta = {}, ...props } }) => {
           content="Keep track of all your courses in one place."
         />
       </Head>
+      <UserProvider>
         <MuiPickersUtilsProvider utils={DateFunctionsUtils}>
           {getLayout(<Component {...props}></Component>)}
         </MuiPickersUtilsProvider>
+      </UserProvider>
     </div>
   );
 };

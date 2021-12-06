@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import React, { useEffect, useState, useRef } from "react";
-// import { Button } from "@material-ui/core";
+import { useRouter } from "next/router";
+import { useUser } from "../../modules/user/services/user/provider";
 
 const NavbarCustom = ({}) => {
   const [navBackground, setNavBackground] = useState(false);
   const navRef = useRef();
+  const { isAuthenticated } = useUser();
+  const router = useRouter();
 
   navRef.current = navBackground;
   useEffect(() => {
@@ -21,7 +24,6 @@ const NavbarCustom = ({}) => {
     };
   }, []);
 
-  let signedIn = false;
   return (
     <Navbar
       expand="lg"
@@ -35,7 +37,7 @@ const NavbarCustom = ({}) => {
       }}
     >
       <Container>
-        <Link passHref={true} href="/">
+        <Link passHref={true} href="/landing">
           <Navbar.Brand>
             <div className="d-flex align-items-center">
               <img
@@ -47,8 +49,7 @@ const NavbarCustom = ({}) => {
             </div>
           </Navbar.Brand>
         </Link>
-        {
-          signedIn &&
+        {isAuthenticated && (
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={() => {
@@ -57,26 +58,29 @@ const NavbarCustom = ({}) => {
                 : setNavBackground(false);
             }}
           />
-        }
-        {
-          signedIn &&
+        )}
+        {isAuthenticated && (
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link passHref={true} href="/dashboard">
                 <Nav.Link>Dashboard</Nav.Link>
               </Link>
-              <Link passHref={true} href="/my-courses">
+              <Link passHref={true} href="/overview">
                 <Nav.Link>Courses</Nav.Link>
               </Link>
             </Nav>
           </Navbar.Collapse>
-        }
-        {
-          !signedIn &&
-          <Button>
-            Login
-          </Button>
-        }
+        )}
+        {!isAuthenticated &&
+          (router.pathname === "/login" ? (
+            <Link passHref={true} href="/signup">
+              <Button>Signup</Button>
+            </Link>
+          ) : (
+            <Link passHref={true} href="/login">
+              <Button>Login</Button>
+            </Link>
+          ))}
       </Container>
     </Navbar>
   );
