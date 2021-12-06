@@ -4,13 +4,12 @@ import "../styles/globals.css";
 import { wrapper } from "../common/store";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFunctionsUtils from "@date-io/date-fns";
-import { Provider } from "next-auth/client";
 
 const MyApp = ({ Component, pageProps: {session, meta = {}, ...props } }) => {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <Provider>
+    <div>
       <Head>
         <title>Courses Overflow</title>
         <meta
@@ -26,7 +25,7 @@ const MyApp = ({ Component, pageProps: {session, meta = {}, ...props } }) => {
         <MuiPickersUtilsProvider utils={DateFunctionsUtils}>
           {getLayout(<Component {...props}></Component>)}
         </MuiPickersUtilsProvider>
-      </Provider>
+    </div>
   );
 };
 

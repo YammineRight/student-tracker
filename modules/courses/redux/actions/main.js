@@ -1,5 +1,5 @@
 import * as t from "../types";
-import axios from "axios";
+import { Api } from "../../../../common/api.js";
 import { Validator } from "../../../../common/util/validation";
 import { courseRules, semesterRules, examRules } from "../../constants";
 
