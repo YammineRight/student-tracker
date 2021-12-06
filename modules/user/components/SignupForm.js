@@ -104,6 +104,7 @@ const SignupForm = () => {
           name="email"
           value={form.email}
           error={error.email ? error.email[0] : null}
+          helperText={error.email ? error.email[0] : " "}
           className="w-100 pb-2"
         />
 
@@ -130,7 +131,7 @@ const SignupForm = () => {
           className="w-100 pb-2"
           value={form.confirmPassword}
           error={error?.confirmPassword ? error?.confirmPassword : null}
-          helperText={error?.confirmPassword ? error?.confirmPassword : " "}
+          helperText={" "}
         />
 
         <div
