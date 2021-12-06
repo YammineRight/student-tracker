@@ -33,11 +33,9 @@ const Upcoming = () => {
 
   if(loading) {
     return (
-      <>
       <div className="page-loader-container">
         <Loader />
       </div>
-      </>
     );
   } else {
     return (

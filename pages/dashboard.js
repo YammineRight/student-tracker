@@ -10,24 +10,34 @@ import { UilExclamationOctagon } from "@iconscout/react-unicons";
 import { getSemesters } from "../modules/courses/redux/getters/main";
 import { Api } from "../common/api";
 import { addSemester } from "../modules/courses/redux/actions/main";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loader from "../common/components/Loader";
 
 const Dashboard = ({ addSemester }) => {
   const router = useRouter();
   const semesters = useSelector(getSemesters);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     try {
       const { data: semesters } = await Api.get("/semesters");
-
+      setLoading(false);
       semesters.forEach((semester) => {
         addSemester(semester);
       });
     } catch (e) {
+      setLoading(false);
       console.error(e);
     }
   }, []);
 
+  if(loading) {
+    return (
+      <div className="page-loader-container">
+        <Loader />
+      </div>
+    )
+  } 
   return (
     <>
       <div className="d-flex justify-content-between pb-4 pt-4">
