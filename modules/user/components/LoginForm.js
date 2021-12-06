@@ -7,7 +7,7 @@ import Link from "next/link";
 const LoginForm = () => {
   const { login } = useUser();
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState({});
@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   //for the validation to work the name attribute of an input must match a rule name
   const rules = {
-    email: "required|email|max:255",
+    username: "required|max:255",
     password: "required|max:255",
   };
 
@@ -74,12 +74,12 @@ const LoginForm = () => {
         <TextField
           disabled={isLoading}
           onChange={handleInputChange}
-          label="Email"
-          type="email"
-          name="email"
-          value={form.email}
-          error={error.email ? error.email[0] : null}
-          helperText={error.email ? error.email[0] : " "}
+          label="Username"
+          type="username"
+          name="username"
+          value={form.username}
+          error={error.username ? error.username[0] : null}
+          helperText={error.username ? error.username[0] : " "}
           className="w-100 pb-2"
         />
 

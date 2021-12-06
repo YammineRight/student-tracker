@@ -13,7 +13,7 @@ const SignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -21,7 +21,7 @@ const SignupForm = () => {
 
   //for the validation to work the name attribute of an input must match a rule name
   const rules = {
-    fullName: "required|max:255",
+    username: "required|max:255",
     email: "required|email|max:255",
     password:
       "required|contains:capital|min:8|contains:special|contains:number|max:255",
@@ -87,12 +87,12 @@ const SignupForm = () => {
         <TextField
           disabled={isLoading}
           onChange={handleInputChange}
-          label="Full Name"
-          type="fullName"
-          name="fullName"
-          value={form.fullName}
-          error={error.fullName ? error.fullName[0] : null}
-          helperText={error.fullName ? error.fullName[0] : " "}
+          label="User Name"
+          type="username"
+          name="username"
+          value={form.username}
+          error={error.username ? error.username[0] : null}
+          helperText={error.username ? error.username[0] : " "}
           className="w-100 pb-2"
         />
 
