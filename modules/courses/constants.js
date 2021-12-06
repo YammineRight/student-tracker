@@ -1,18 +1,18 @@
 export const courseRules = {
-  title: "required",
+  name: "required",
   description: "nullable",
   credits: "required",
-  professor: "nullable",
+  professorName: "nullable",
   link: "url|nullable",
   notes: "nullable",
   semesterId: "required",
 }
 
 export const emptyCourse = {
-  title: "",
+  name: "",
   description: "",
   credits: "",
-  professor: "",
+  professorName: "",
   link: "",
   notes: "",
   examsIds: [],
@@ -28,24 +28,21 @@ export const emptySemester = (() => ({
   title: "",
   startDate: new Date(),
   endDate: new Date(),
-  coursesIds: []
+  courses: []
 }))();
 
 export const examRules = {
-  title: "required",
+  name: "required",
   weight: "nullable",
   grade: "nullable|max:20|min:0",
   date: "nullable",
-  passingGrade: "required|max:20|min:0",
   courseId: "required",
 }
 
 export const emptyExam = {
-  title: "",
+  name: "",
   weight: "",
   grade: "",
   date: "",
-  gradeOver: "20",
-  passingGrade: "12",
   courseId: ""
 }

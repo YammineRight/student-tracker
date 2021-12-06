@@ -8,11 +8,26 @@ import Link from "next/link";
 import Exam from "./Exam";
 import {deleteCourse} from "../redux/actions/main";
 import { connect } from "react-redux";
+import { useEffect } from "react";
+import { Validator } from "../../../common/util/validation";
 
 const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
   const course = useSelector((state) => getCourse(state, courseId));
   const { isActive: isDetailsOpen, toggle: toggleDetails } = useToggle();
-  const { title, ...details } = course;
+  const { name, ...details } = course;
+
+  useEffect(async () => {
+    try {
+      const { data: exams } = await Api.get("/exams", {
+        courseId: course.id,
+      });
+      exams.forEach((exam) => {
+        addExam(exam);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <div
@@ -20,7 +35,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
       style={{ background: "#eeeeee14" }}
     >
       <div className="d-flex justify-content-between align-items-center">
-        <h6 className="mb-0">{title}</h6>
+        <h6 className="mb-0">{name}</h6>
         <div className="flex-shrink-0">
           <a
             style={{

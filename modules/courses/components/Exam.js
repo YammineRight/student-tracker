@@ -30,7 +30,7 @@ const Exam = ({ examId, dispatchDeleteExam }) => {
           <div className="d-flex p-3 align-items-center">
             <div>
               <h4 className="mb-0">
-                {exam.title}
+                {exam.name}
                 <UilBookOpen className="m-2" />
               </h4>
             </div>

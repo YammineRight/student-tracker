@@ -17,11 +17,11 @@ export const useUserService = () => {
   }, []);
 
   const addTokenToApiHeader = (accessToken) => {
-    Api.defaults.headers.common["Authorization"] = `${accessToken}`;
+    Api.defaults.headers.common["x-access-token"] = `${accessToken}`;
   };
 
   const removeTokenFromApiHeader = () => {
-    delete Api.defaults.headers.common["Authorization"];
+    delete Api.defaults.headers.common["x-access-token"];
   };
 
   const addUnAuthenticatedInterceptor = () => {
