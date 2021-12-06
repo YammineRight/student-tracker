@@ -20,7 +20,7 @@ export const submitCourse = (course, semesterId) => async (dispatch) => {
         const formatedCourse = {
           id: courseAdded["_id"],
           ...courseAdded,
-          examIds: course.exams,
+          examsIds: course?.exams || [],
         };
 
         dispatch({
@@ -28,6 +28,7 @@ export const submitCourse = (course, semesterId) => async (dispatch) => {
           payload: {
             id: courseAdded["_id"],
             course: formatedCourse,
+            semesterId,
           },
         });
       } catch (err) {
@@ -43,13 +44,14 @@ export const submitCourse = (course, semesterId) => async (dispatch) => {
         const formatedCourse = {
           id: courseAdded["_id"],
           ...courseAdded,
-          examIds: course.exams,
+          examsIds: course.exams || [],
         };
         dispatch({
           type: t.SUBMIT_COURSE,
           payload: {
             id: courseAdded["_id"],
             course: formatedCourse,
+            semesterId,
           },
         });
       } catch (err) {
@@ -72,7 +74,7 @@ export const resetSubmitCourseStatus = () => (dispatch) => {
 
 export const deleteCourse = (courseId) => async (dispatch) => {
   try {
-    await Api.delete("/delete-course", { courseId });
+    await Api.post("/delete-course", { courseId });
     dispatch({
       type: t.DELETE_COURSE,
       payload: courseId,
@@ -92,12 +94,13 @@ export const submitSemester = (semester) => async (dispatch) => {
           name: semester.number,
           ...semester,
         });
-        const { name, startDate, endDate } = semesterAdded;
+        const { number, startDate, endDate } = semesterAdded;
 
         const formatedSemester = {
           id: semesterAdded["_id"],
-          number: name,
+          number,
           startDate: new Date(startDate),
+          coursesIds: semester.courses,
           endDate: new Date(endDate),
         };
         dispatch({
@@ -117,12 +120,13 @@ export const submitSemester = (semester) => async (dispatch) => {
           ...semester,
           semesterId: semester.id,
         });
-        const { name, startDate, endDate } = semesterAdded;
+        const { number, startDate, endDate } = semesterAdded;
 
         const formatedSemester = {
           id: semesterAdded["_id"],
-          number: name,
+          number,
           startDate: new Date(startDate),
+          coursesIds: semester.courses,
           endDate: new Date(endDate),
         };
         dispatch({
@@ -130,7 +134,7 @@ export const submitSemester = (semester) => async (dispatch) => {
           payload: {
             id: semesterAdded["_id"],
             semester: formatedSemester,
-            courseIds: semester.courses,
+    
           },
         });
       } catch (err) {
@@ -153,7 +157,7 @@ export const resetSubmitSemesterStatus = () => (dispatch) => {
 
 export const deleteSemester = (semesterId) => async (dispatch) => {
   try {
-    await Api.delete("/delete-semester", { semesterId });
+    await Api.post("/delete-semester", { semesterId });
     dispatch({
       type: t.DELETE_SEMESTER,
       payload: semesterId,
@@ -186,6 +190,7 @@ export const submitExam = (exam, courseId) => async (dispatch) => {
           payload: {
             id: examAdded["_id"],
             exam: formatedExam,
+            courseId,
           },
         });
       } catch (err) {
@@ -207,6 +212,7 @@ export const submitExam = (exam, courseId) => async (dispatch) => {
           payload: {
             id: examAdded["_id"],
             exam: formatedExam,
+            courseId,
           },
         });
       } catch (err) {
@@ -229,7 +235,7 @@ export const resetSubmitExamStatus = () => (dispatch) => {
 
 export const deleteExam = (examId) => async (dispatch) => {
   try {
-    await Api.delete("/delete-exam", { exanId });
+    await Api.post("/delete-exam", { examId });
     dispatch({
       type: t.DELETE_EXAM,
       payload: examId,
@@ -240,12 +246,13 @@ export const deleteExam = (examId) => async (dispatch) => {
 };
 
 export const addSemester = (semester) => (dispatch) => {
-  const { name, startDate, endDate } = semester;
+  const { number, startDate, endDate } = semester;
 
   const formatedSemester = {
     id: semester["_id"],
-    number: name,
+    number,
     startDate: new Date(startDate),
+    coursesIds: semester.courses,
     endDate: new Date(endDate),
   };
   dispatch({
@@ -253,7 +260,6 @@ export const addSemester = (semester) => (dispatch) => {
     payload: {
       id: semester["_id"],
       semester: formatedSemester,
-      courseIds: semester.courses,
     },
   });
 };
@@ -263,11 +269,13 @@ export const addExam = (exam) => async (dispatch) => {
     id: exam["_id"],
     ...exam,
   };
+
   dispatch({
     type: t.SUBMIT_EXAM,
     payload: {
       id: exam["_id"],
       exam: formatedExam,
+      courseId: exam.courseId
     },
   });
 };
@@ -276,7 +284,7 @@ export const addCourse = (course) => (dispatch) => {
   const formatedCourse = {
     id: course["_id"],
     ...course,
-    examIds: course.exams
+    examsIds: course.exams,
   };
 
   dispatch({
@@ -284,6 +292,7 @@ export const addCourse = (course) => (dispatch) => {
     payload: {
       id: course["_id"],
       course: formatedCourse,
+      semesterId: course.semesterId,
     },
   });
 };

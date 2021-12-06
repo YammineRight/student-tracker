@@ -43,7 +43,7 @@ const Dashboard = ({ addSemester }) => {
           </h6>
         </div>
       ) : (
-        <div className="row">
+        <div className="row"> 
           {Object.keys(semesters).map((id) => (
             <Semester key={id} semester={semesters[id]} />
           ))}

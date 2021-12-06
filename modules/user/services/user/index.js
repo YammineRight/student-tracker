@@ -105,9 +105,13 @@ export const useUserService = () => {
       setIsAuthenticated(true);
       setIsLoading(false);
     } catch (err) {
-      const { errors, message } = err.response?.data;
+      let { message, ...errors } = err.response?.data;
       if (unAuthenticateOnFail) unAuthenticate();
       setIsLoading(false);
+      Object.keys(errors).forEach((errorAttribute) => {
+        errors[errorAttribute] = [errors[errorAttribute]];
+      });
+      console.log(errors);
       throw { ...errors, message };
     }
   };

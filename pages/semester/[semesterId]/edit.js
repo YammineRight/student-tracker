@@ -11,7 +11,7 @@ const EditSemester = () => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "50px auto" }}>
-        <h2 className="pb-3">Edit Semester</h2>
+        <h2 className="pb-3">Edit Semester {semester?.number}</h2>
         <AddEditSemesterForm semesterToEdit={semester}/>
     </div>
   );

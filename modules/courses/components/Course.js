@@ -1,33 +1,40 @@
 import { useSelector } from "react-redux";
 import { getCourse } from "../redux/getters/main";
-import { UilEye, UilEyeSlash, UilPen, UilPlus, UilTrashAlt } from "@iconscout/react-unicons";
+import {
+  UilEye,
+  UilEyeSlash,
+  UilPen,
+  UilPlus,
+  UilTrashAlt,
+} from "@iconscout/react-unicons";
 import { Button } from "@material-ui/core";
 import Collapse from "@material-ui/core/Collapse";
 import { useToggle } from "../../../common/util/toogleHooks";
 import Link from "next/link";
 import Exam from "./Exam";
-import {deleteCourse} from "../redux/actions/main";
+import { deleteCourse, addExam } from "../redux/actions/main";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { Validator } from "../../../common/util/validation";
+import { Api } from "../../../common/api";
 
-const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
+const CourseDisplay = ({ courseId, dispatchDeleteCourse, addExam }) => {
   const course = useSelector((state) => getCourse(state, courseId));
   const { isActive: isDetailsOpen, toggle: toggleDetails } = useToggle();
-  const { name, ...details } = course;
-
   useEffect(async () => {
-    try {
-      const { data: exams } = await Api.get("/exams", {
-        courseId: course.id,
-      });
-      exams.forEach((exam) => {
-        addExam(exam);
-      });
-    } catch (e) {
-      console.error(e);
+    if (courseId) {
+      try {
+        const { data: exams } = await Api.post("/exams", {
+          courseId: courseId,
+        });
+        exams.forEach((exam) => {
+          addExam({ ...exam, courseId });
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }, []);
+  }, [courseId]);
 
   return (
     <div
@@ -35,7 +42,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
       style={{ background: "#eeeeee14" }}
     >
       <div className="d-flex justify-content-between align-items-center">
-        <h6 className="mb-0">{name}</h6>
+        <h6 className="mb-0">{course?.name}</h6>
         <div className="flex-shrink-0">
           <a
             style={{
@@ -50,7 +57,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
             {isDetailsOpen ? <UilEyeSlash /> : <UilEye />}
           </a>
           <Link
-            href={`/semester/${course.semesterId}/course/${course.id}/edit`}
+            href={`/semester/${course?.semesterId}/course/${course?.id}/edit`}
             passHref={true}
           >
             <a className="btn text-light p-2">
@@ -62,54 +69,54 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
       <div>
         <Collapse in={isDetailsOpen}>
           <div className="d-flex flex-column">
-            {details.description && (
+            {course?.description && (
               <span>
                 <small>
-                  <em>Description: {details.description}</em>
+                  <em>Description: {course?.description}</em>
                 </small>
               </span>
             )}
-            {details.credits && (
+            {course?.credits && (
               <span>
                 <small>
-                  <em>Credits: {details.credits}</em>
+                  <em>Credits: {course?.credits}</em>
                 </small>
               </span>
             )}
-            {details.professor && (
+            {course?.professor && (
               <span>
                 <small>
-                  <em>Professor: {details.professor}</em>
+                  <em>Professor: {course?.professor}</em>
                 </small>
               </span>
             )}
-            {details.link && (
+            {course?.link && (
               <span>
                 <small>
-                  <em>Link: {details.link}</em>
+                  <em>Link: {course?.link}</em>
                 </small>
               </span>
             )}
-            {details.notes && (
+            {course?.notes && (
               <span>
                 <small>
-                  <em>Notes: {details.notes}</em>
+                  <em>Notes: {course?.notes}</em>
                 </small>
               </span>
             )}
           </div>
           <div className="w-100 p-2 rounded-3">
-            {course.examsIds.length !== 0 ? (
+            {course?.examsIds?.length !== 0 ? (
               <>
                 <h6 className="pt-2">Exams:</h6>
                 <div className="d-flex align-items-center flex-wrap">
-                  {course.examsIds.reverse().map((examId) => (
+                  {course?.examsIds.reverse().map((examId) => (
                     <div key={examId} className="p-1">
                       <Exam examId={examId} />
                     </div>
                   ))}
                   <Link
-                    href={`/semester/${course.semesterId}/course/${course.id}/exam/add`}
+                    href={`/semester/${course?.semesterId}/course/${course?.id}/exam/add`}
                     passHref={true}
                   >
                     <Button
@@ -119,7 +126,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
                         height: "85px",
                       }}
                     >
-                      <UilPlus  />
+                      <UilPlus />
                     </Button>
                   </Link>
                 </div>
@@ -128,7 +135,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
               <div className="d-flex align-items-center">
                 <span>No exams added yet &nbsp;&nbsp;&nbsp;</span>
                 <Link
-                  href={`/semester/${course.semesterId}/course/${course.id}/exam/add`}
+                  href={`/semester/${course?.semesterId}/course/${course?.id}/exam/add`}
                   passHref={true}
                 >
                   <Button
@@ -149,6 +156,7 @@ const CourseDisplay = ({ courseId, dispatchDeleteCourse }) => {
 
 const mapDispatchToProps = {
   dispatchDeleteCourse: deleteCourse,
+  addExam,
 };
 
 export default connect((state) => ({}), mapDispatchToProps)(CourseDisplay);

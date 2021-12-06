@@ -10,23 +10,28 @@ import CourseDisplay from "./Course";
 import { useToggle } from "../../../common/util/toogleHooks";
 import Collapse from "@material-ui/core/Collapse";
 import { addCourse, deleteSemester } from "../redux/actions/main";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Validator } from "../../../common/util/validation";
+import { Api } from "../../../common/api";
+import { getCourses } from "../redux/getters/main";
 
-const Semester = ({ semester, dispatchDeleteSemester }) => {
+const Semester = ({ semester, dispatchDeleteSemester, addCourse }) => {
   const { isActive: isCoursesOpen, toggle: toggleCourses } = useToggle(true);
+  const courses = useSelector((state) => getCourses(state, semester.id));
 
   useEffect(async () => {
-    try {
-      const { data: courses } = await Api.get("/courses", {
-        semesterId: semester.id,
-      });
-      courses.forEach((course) => {
-        addCourse(course);
-      });
-    } catch (e) {
-      console.error(e);
+    if (semester) {
+      try {
+        const { data: courses } = await Api.post("/courses", {
+          semesterId: semester.id,
+        });
+        courses.forEach((course) => {
+          addCourse({ ...course, semesterId: semester.id });
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, []);
 
@@ -60,7 +65,7 @@ const Semester = ({ semester, dispatchDeleteSemester }) => {
         </small>
       </div>
       <div className="mt-2 p-3 bg-secondary rounded-3 text-light">
-        {semester.courseIds.length !== 0 && (
+        {Object.keys(courses).length !== 0 && (
           <div className="d-flex justify-content-between align-items-center pb-3">
             <h5>Courses</h5>
             <Button onClick={toggleCourses}>
@@ -75,10 +80,10 @@ const Semester = ({ semester, dispatchDeleteSemester }) => {
           </div>
         )}
         <div>
-          {semester.courseIds.length !== 0 && (
+          {Object.keys(courses).length !== 0 && (
             <div className="pb-4">
               <Collapse in={isCoursesOpen}>
-                {semester.courseIds.reverse().map((id) => (
+                {Object.keys(courses).reverse().map((id) => (
                   <CourseDisplay courseId={id} key={id} />
                 ))}
               </Collapse>
@@ -99,7 +104,7 @@ const Semester = ({ semester, dispatchDeleteSemester }) => {
 
 const mapDispatchToProps = {
   dispatchDeleteSemester: deleteSemester,
-  addCourse
+  addCourse,
 };
 
 export default connect((state) => ({}), mapDispatchToProps)(Semester);
