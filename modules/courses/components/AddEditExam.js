@@ -56,11 +56,11 @@ const EditAddExamForm = (props) => {
         </Select>
       </FormControl> */}
       <TextField
-        error={errors?.title}
-        helperText={errors?.title || " "}
-        name="title"
-        label="Title*"
-        value={exam.title}
+        error={errors?.name}
+        helperText={errors?.name || " "}
+        name="name"
+        label="Name*"
+        value={exam.name}
         variant="standard"
         onChange={handleInput}
         className="w-100 pb-2"
@@ -97,17 +97,6 @@ const EditAddExamForm = (props) => {
         onChange={(v) => handleInput({ target: { name: "date", value: v } })}
         error={errors?.date}
         helperText={errors?.date || " "}
-      />
-      <TextField
-        error={errors?.passingGrade}
-        helperText={errors?.passingGrade || " "}
-        name="passingGrade"
-        label="Passing Grade / 20"
-        value={exam.passingGrade}
-        type="number"
-        variant="standard"
-        onChange={handleInput}
-        className="w-100 pb-2"
       />
 
       <Button variant="contained" type="submit">

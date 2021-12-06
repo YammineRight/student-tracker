@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 const Exam = ({ examId, dispatchDeleteExam }) => {
   const exam = useSelector((state) => getExam(state, examId));
-  const course = useSelector((state) => getCourse(state, exam.courseId))
+  const course = useSelector((state) => getCourse(state, exam?.courseId))
 
   return (
     <div
@@ -22,7 +22,7 @@ const Exam = ({ examId, dispatchDeleteExam }) => {
     >
       <Link
         passHref={true}
-        href={`semester/${course.semesterId}/course/${exam.courseId}/exam/${examId}/edit`}
+        href={`semester/${course?.semesterId}/course/${exam?.courseId}/exam/${examId}/edit`}
       >
         <ButtonBase
         className="first-custom-class"
@@ -30,7 +30,7 @@ const Exam = ({ examId, dispatchDeleteExam }) => {
           <div className="d-flex p-3 align-items-center">
             <div>
               <h4 className="mb-0">
-                {exam.title}
+                {exam?.name}
                 <UilBookOpen className="m-2" />
               </h4>
             </div>
@@ -38,18 +38,18 @@ const Exam = ({ examId, dispatchDeleteExam }) => {
               className="d-flex flex-column pt-0 pb-0"
               style={{ paddingLeft: "10px" }}
             >
-              {exam.grade && (
+              {exam?.grade && (
                 <small
                   style={{
-                    color: exam.passingGrade > exam.grade ? "#efc2c2" : ""
+                    color: exam?.passingGrade > exam?.grade ? "#efc2c2" : ""
                   }}
                 >
-                  Grade: {exam.grade}/20{" "}
+                  Grade: {exam?.grade}/20{" "}
                 </small>
               )}
-              {exam.weight && <small>Weight: {exam.weight}% </small>}
-              {exam.date && (
-                <small>Scheduled on: {exam.date.toLocaleString()}</small>
+              {exam?.weight && <small>Weight: {exam?.weight}% </small>}
+              {exam?.date && (
+                <small>Scheduled on: {exam?.date.toLocaleString()}</small>
               )}
             </div>
           </div>

@@ -1,27 +1,49 @@
 import { useState, useEffect, useRef } from "react";
-import { userApi } from "../../api";
 import { Api } from "../../../../common/api";
 import { Validator } from "../../../../common/util/validation";
+import providers from "../../../../config/services";
 
 export const useUserService = () => {
   const [user, setUser] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState();
   // initial loading state is true to check for token in the local storage
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const unAuthInterceptor = useRef();
+  const userApi =: {
+    import { Api } from "../../common/api";
 
-  // gets fired when the app is mounted
-  // authenticates user if a token is available
-  useEffect(() => {
-    unAuthenticate();
+export const userApi = {
+    signup: (credentials) => {
+      return Api.post("signup", credentials);
+    },
+
+    login: (credentials) => {
+      return Api.post("login", credentials);
+    },
+/*
+    logout: () => {
+      return Api.get("logout");
+    },*/
+  }
+
+  useEffect(async () => {
+    const token = getToken();
+
+    if (token) {
+      addTokenToApiHeader(token);
+      getUser().catch();
+    } else {
+      unAuthenticate();
+      setIsLoading(false);
+    }
   }, []);
 
   const addTokenToApiHeader = (accessToken) => {
-    Api.defaults.headers.common["x-access-token"] = `${accessToken}`;
+    Api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   };
 
   const removeTokenFromApiHeader = () => {
-    delete Api.defaults.headers.common["x-access-token"];
+    delete Api.defaults.headers.common["Authorization"];
   };
 
   const addUnAuthenticatedInterceptor = () => {
@@ -32,6 +54,7 @@ export const useUserService = () => {
       (error) => {
         if (error.response.status == 401) {
           unAuthenticate();
+          logout();
         }
         return Promise.reject(error);
       }
@@ -39,7 +62,7 @@ export const useUserService = () => {
   };
 
   const removeUnAuthenticatedInterceptor = () => {
-    Api.interceptors.response.eject(unAuthInterceptor.current);
+    Api.interceptors.request.eject(unAuthInterceptor.current);
     unAuthInterceptor.current = null;
   };
 
@@ -71,6 +94,7 @@ export const useUserService = () => {
     setIsLoading(true);
     try {
       if (isAuthenticated === true) {
+        await userApi.logout();
         unAuthenticate();
       }
       setIsLoading(false);
@@ -80,16 +104,13 @@ export const useUserService = () => {
     }
   };
 
-  const authenticateUsingApiCall = async (
-    apiCall,
-    unAuthenticateOnFail = false
-  ) => {
+  const authenticateUsingApiCall = async (apiCall) => {
     setIsLoading(true);
     try {
       const { data } = await apiCall();
 
       setUser(() => ({
-        username: data?.username,
+        username: data?.fullName || data?.name,
         email: data?.email,
       }));
 
@@ -105,13 +126,9 @@ export const useUserService = () => {
       setIsAuthenticated(true);
       setIsLoading(false);
     } catch (err) {
-      let { message, ...errors } = err.response?.data;
-      if (unAuthenticateOnFail) unAuthenticate();
+      const { errors, message } = err.response?.data;
+      unAuthenticate();
       setIsLoading(false);
-      Object.keys(errors).forEach((errorAttribute) => {
-        errors[errorAttribute] = [errors[errorAttribute]];
-      });
-      console.log(errors);
       throw { ...errors, message };
     }
   };
@@ -130,6 +147,5 @@ export const useUserService = () => {
     isLoading,
     signup,
     login,
-    logout,
   };
 };

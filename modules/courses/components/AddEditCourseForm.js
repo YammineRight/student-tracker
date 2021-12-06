@@ -56,11 +56,11 @@ const EditAddCourseForm = (props) => {
         </Select>
       </FormControl> */}
       <TextField
-        error={errors?.title}
-        helperText={errors?.title || " "}
-        name="title"
-        label="Title*"
-        value={course.title}
+        error={errors?.name}
+        helperText={errors?.name || " "}
+        name="name"
+        label="Name*"
+        value={course.name}
         variant="standard"
         onChange={handleInput}
         className="w-100 pb-2"
@@ -87,11 +87,11 @@ const EditAddCourseForm = (props) => {
         className="w-100 pb-2"
       />
       <TextField
-        error={errors?.professor}
-        helperText={errors?.professor || " "}
-        name="professor"
-        label="Professor"
-        value={course.professor}
+        error={errors?.professorName}
+        helperText={errors?.professorName || " "}
+        name="professorName"
+        label="Professor Name"
+        value={course.professorName}
         variant="standard"
         onChange={handleInput}
         className="w-100 pb-2"

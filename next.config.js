@@ -1,7 +1,16 @@
 module.exports = {
   env: {
     SECRET: process.env.SECRET,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    API_URL: process.env.API_URL,
   },
-  reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/landing',
+        permanent: true,
+      },
+    ]
+  },
 }
