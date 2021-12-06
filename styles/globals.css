@@ -24,6 +24,14 @@ a {
   font-size: 12px;
 }
 
+.page-loader-container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .separator::before,
 .separator::after {
   content: "";

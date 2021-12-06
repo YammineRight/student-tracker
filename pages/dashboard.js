@@ -4,14 +4,29 @@ import { getLayout } from "../common/layouts/NavFooterLayout";
 import Semester from "../modules/courses/components/Semester";
 import Link from "next/link";
 import { UilPlus } from "@iconscout/react-unicons";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Validator } from "../common/util/validation";
 import { UilExclamationOctagon } from "@iconscout/react-unicons";
 import { getSemesters } from "../modules/courses/redux/getters/main";
+import { Api } from "../common/api";
+import { addSemester } from "../modules/courses/redux/actions/main";
+import { useEffect } from "react";
 
-const Dashboard = () => {
+const Dashboard = ({ addSemester }) => {
   const router = useRouter();
   const semesters = useSelector(getSemesters);
+
+  useEffect(async () => {
+    try {
+      const { data: semesters } = await Api.get("/semesters");
+
+      semesters.forEach((semester) => {
+        addSemester(semester);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <>
@@ -28,13 +43,9 @@ const Dashboard = () => {
           </h6>
         </div>
       ) : (
-        <div className="row">
+        <div className="row"> 
           {Object.keys(semesters).map((id) => (
-            <Semester
-              key={id}
-              onClick={() => router.push(`/course/${id}`)}
-              semester={semesters[id]}
-            />
+            <Semester key={id} semester={semesters[id]} />
           ))}
         </div>
       )}
@@ -42,6 +53,10 @@ const Dashboard = () => {
   );
 };
 
+const mapDispatchToProps = {
+  addSemester: addSemester,
+};
+
 Dashboard.getLayout = getLayout;
 
-export default Dashboard;
+export default connect((state) => ({}), mapDispatchToProps)(Dashboard);
