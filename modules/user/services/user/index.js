@@ -13,7 +13,14 @@ export const useUserService = () => {
   // gets fired when the app is mounted
   // authenticates user if a token is available
   useEffect(() => {
-    unAuthenticate();
+    const token = getToken();
+
+    if (token) {
+      addTokenToApiHeader(token);
+      setIsAuthenticated(true);
+    } else {
+      unAuthenticate();
+    }
   }, []);
 
   const addTokenToApiHeader = (accessToken) => {

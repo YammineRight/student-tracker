@@ -7,7 +7,7 @@ import { useUser } from "../../modules/user/services/user/provider";
 const NavbarCustom = ({}) => {
   const [navBackground, setNavBackground] = useState(false);
   const navRef = useRef();
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, logout } = useUser();
   const router = useRouter();
 
   navRef.current = navBackground;
@@ -71,8 +71,8 @@ const NavbarCustom = ({}) => {
             </Nav>
           </Navbar.Collapse>
         )}
-        {!isAuthenticated &&
-          (router.pathname === "/login" ? (
+        {!isAuthenticated ? (
+          router.pathname === "/login" ? (
             <Link passHref={true} href="/signup">
               <Button>Signup</Button>
             </Link>
@@ -80,7 +80,10 @@ const NavbarCustom = ({}) => {
             <Link passHref={true} href="/login">
               <Button>Login</Button>
             </Link>
-          ))}
+          )
+        ) : (
+          <Button onClick={logout}>Logout</Button>
+        )}
       </Container>
     </Navbar>
   );
