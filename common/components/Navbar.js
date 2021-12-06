@@ -68,6 +68,9 @@ const NavbarCustom = ({}) => {
               <Link passHref={true} href="/overview">
                 <Nav.Link>Courses</Nav.Link>
               </Link>
+              <Link passHref={true} href="/upcoming">
+                <Nav.Link>Upcoming</Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         )}
