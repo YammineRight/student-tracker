@@ -98,6 +98,7 @@ export const useUserService = () => {
       setUser(() => ({
         username: data?.username,
         email: data?.email,
+        roles: data?.roles
       }));
 
       // saving the token in the local storage and adding it to the api header

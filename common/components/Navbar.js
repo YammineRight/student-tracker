@@ -7,7 +7,7 @@ import { useUser } from "../../modules/user/services/user/provider";
 const NavbarCustom = ({}) => {
   const [navBackground, setNavBackground] = useState(false);
   const navRef = useRef();
-  const { isAuthenticated, logout } = useUser();
+  const { isAuthenticated, logout, user } = useUser();
   const router = useRouter();
 
   navRef.current = navBackground;
@@ -68,6 +68,11 @@ const NavbarCustom = ({}) => {
               <Link passHref={true} href="/upcoming">
                 <Nav.Link>Upcoming</Nav.Link>
               </Link>
+              {user?.roles?.includes("ROLE_ADMIN") && (
+                <Link passHref={true} href="/admin">
+                  <Nav.Link>Edit Landing</Nav.Link>
+                </Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         )}
