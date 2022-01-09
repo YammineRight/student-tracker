@@ -124,7 +124,7 @@ const Admin = () => {
             </thead>
             <tbody>
               {Object.keys(landingData).map((id) => (
-                <tr>
+                <tr key={id}>
                   <td>{id}</td>
                   <td>
                     {isEditingLandingData.status == true &&
@@ -200,7 +200,7 @@ const Admin = () => {
             </thead>
             <tbody>
               {Object.keys(features).map((id) => (
-                <tr>
+              <tr key={id}>
                   <td>
                     {isEditingFeatures.status == true &&
                     isEditingFeatures.key == id ? (
