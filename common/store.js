@@ -1,7 +1,14 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createWrapper } from "next-redux-wrapper";
-import rootReducer from "../modules/courses/redux/reducers/rootReducer";
+import { combineReducers } from "redux"
+import main from "../modules/courses/redux/reducers/main"
+import events from "../modules/events/redux/reducers/main"
+
+const rootReducer = combineReducers({
+  main: main,
+  events: events
+})
 
 const middleware = [thunk];
 
@@ -15,3 +22,4 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 const makeStore = () => createStore(rootReducer, enhancer);
 
 export const wrapper = createWrapper(makeStore);
+

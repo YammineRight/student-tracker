@@ -31,6 +31,7 @@ export const submitCourse = (course, semesterId) => async (dispatch) => {
             semesterId,
           },
         });
+        return 1
       } catch (err) {
         console.log(err);
       }
@@ -54,6 +55,7 @@ export const submitCourse = (course, semesterId) => async (dispatch) => {
             semesterId,
           },
         });
+        return 1
       } catch (err) {
         console.log(err);
       }
@@ -110,6 +112,7 @@ export const submitSemester = (semester) => async (dispatch) => {
             semester: formatedSemester,
           },
         });
+        return 1
       } catch (err) {
         console.log(err);
       }
@@ -137,6 +140,7 @@ export const submitSemester = (semester) => async (dispatch) => {
     
           },
         });
+        return 1
       } catch (err) {
         console.log(err);
       }
@@ -193,6 +197,7 @@ export const submitExam = (exam, courseId) => async (dispatch) => {
             courseId,
           },
         });
+        return 1;
       } catch (err) {
         console.log(err);
       }
@@ -215,6 +220,8 @@ export const submitExam = (exam, courseId) => async (dispatch) => {
             courseId,
           },
         });
+
+        return 1;
       } catch (err) {
         console.log(err);
       }

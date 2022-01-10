@@ -24,10 +24,10 @@ const EditAddCourseForm = (props) => {
     setCourse((oldState) => ({ ...oldState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const id = submitCourse(course, semesterId);
+    const id = await submitCourse(course, semesterId);
     setIsLoading(false);
     if (id) {
       router.push("/dashboard");

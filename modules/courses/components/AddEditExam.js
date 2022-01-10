@@ -25,10 +25,10 @@ const EditAddExamForm = (props) => {
     setExam((oldState) => ({ ...oldState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const id = submitExam(exam, courseId);
+    const id = await submitExam(exam, courseId);
     if (id) {
       router.push("/dashboard");
     }

@@ -33,12 +33,12 @@ const pages = [
     path: "/",
   },
   {
-    name: "Courses",
-    path: "/my-courses"
+    name: "Dashboard",
+    path: "/dashboard"
   },
   {
-    name: "About",
-    path: "/about",
+    name: "Upcoming",
+    path: "/upcoming",
   }
 ];
 

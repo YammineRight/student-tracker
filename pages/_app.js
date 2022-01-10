@@ -25,7 +25,8 @@ const MyApp = ({ Component, pageProps: { session, meta = {}, ...props } }) => {
       </Head>
       <UserProvider>
         <MuiPickersUtilsProvider utils={DateFunctionsUtils}>
-          {getLayout(<Component {...props}></Component>)}
+          {getLayout(<Component {...props}>
+          </Component>)}
         </MuiPickersUtilsProvider>
       </UserProvider>
     </div>

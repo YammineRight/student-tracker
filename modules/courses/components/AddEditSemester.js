@@ -32,7 +32,7 @@ const AddEditSemester = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const id = submitSemester(semester);
+    const id = await submitSemester(semester);
     setIsLoading(false);
     if (id) {
       router.push("/dashboard");

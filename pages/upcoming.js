@@ -4,34 +4,36 @@ import { getLayout } from "../common/layouts/NavFooterLayout";
 import EventCard from "../modules/events/components/Event";
 import Link from "next/link";
 import { UilPlus } from "@iconscout/react-unicons";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Validator } from "../common/util/validation";
 import { UilExclamationOctagon } from "@iconscout/react-unicons";
-import { Api } from '../common/api';
+import { Api } from "../common/api";
 import { useEffect, useState } from "react";
 import Loader from "../common/components/Loader";
+import { addEvent } from "../modules/events/redux/getters/main";
 
-const Upcoming = () => {
-  const router = useRouter();
-  const [myEvents, setMyEvents] = useState([]);
+const Upcoming = ({ addEvent }) => {
+  const myEvents = useSelector((state) => state.events.events);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     try {
-      let { data } = await Api.get('/events');
+      let { data } = await Api.get("/events");
       setLoading(false);
-      setMyEvents(() => data);
-    } catch(e) {
+      data.forEach((event) => {
+        addEvent(event);
+      });
+    } catch (e) {
       console.log(e);
       setLoading(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log({myEvents})
-  }, [myEvents])
+    console.log({ myEvents });
+  }, [myEvents]);
 
-  if(loading) {
+  if (loading) {
     return (
       <div className="page-loader-container">
         <Loader />
@@ -42,11 +44,11 @@ const Upcoming = () => {
       <>
         <div className="d-flex justify-content-between pb-4 pt-4">
           <h3>Upcoming</h3>
-          <Link href="/semester/add" passHref={true}>
+          <Link href="/event/add" passHref={true}>
             <Button startIcon={<UilPlus />}>Add Event</Button>
           </Link>
         </div>
-        {myEvents.length === 0 ? (
+        {Validator.isEmpty(myEvents).success === true ? (
           <div className="d-flex justify-content-center align-items-center flex-fill">
             <h6 className="text-warning">
               <UilExclamationOctagon /> you dont have any events yet
@@ -54,22 +56,20 @@ const Upcoming = () => {
           </div>
         ) : (
           <div className="d-flex flex-wrap">
-          {
-            myEvents.map((event, index) => (
-              <EventCard
-                key={index}
-                event={event}
-              />
-            ))
-          }
+            {Object.keys(myEvents).map((eventId, index) => (
+              <EventCard key={index} event={myEvents[eventId]} />
+            ))}
           </div>
         )}
       </>
     );
   }
-
 };
 
 Upcoming.getLayout = getLayout;
 
-export default Upcoming;
+const mapDispatchToProps = {
+  addEvent,
+};
+
+export default connect((state) => ({}), mapDispatchToProps)(Upcoming);
